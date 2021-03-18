@@ -35,6 +35,12 @@ public class MusicService extends Service {
 
         musicPlayer.resumeMusic();
     }
+    public void nextSong(){
+        musicPlayer.nextSong();
+    }
+    public void prevSong(){
+        musicPlayer.prevSong();
+    }
 
     public int getPlayingStatus(){
 

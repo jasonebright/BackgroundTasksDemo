@@ -12,12 +12,14 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
 
     static final int[] MUSICPATH = new int[]{
             R.raw.mario,
-            R.raw.tetris
+            R.raw.tetris,
+            R.raw.gotechgo
     };
 
     static final String[] MUSICNAME = new String[]{
             "Super Mario Brothers",
-            "Tetris"
+            "Tetris",
+            "Go Tech Go"
     };
 
     public MusicPlayer(MusicService service) {
@@ -60,6 +62,19 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
         }
     }
 
+    public void prevSong(){
+        musicIndex = (musicIndex -1) % MUSICNAME.length;
+        player.release();
+        player= null;
+        playMusic();
+    }
+
+    public void nextSong(){
+        musicIndex = (musicIndex +1) % MUSICNAME.length;
+        player.release();
+        player= null;
+        playMusic();
+    }
     @Override
     public void onCompletion(MediaPlayer mediaPlayer) {
         musicIndex = (musicIndex +1) % MUSICNAME.length;

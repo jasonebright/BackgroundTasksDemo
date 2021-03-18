@@ -16,7 +16,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView music;
-    Button play;
+    Button play, prev, next;
 
     MusicService musicService;
     MusicCompletionReceiver musicCompletionReceiver;
@@ -37,6 +37,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         music= (TextView) findViewById(R.id.music);
         play= (Button) findViewById(R.id.play);
         play.setOnClickListener(this);
+        prev= (Button) findViewById(R.id.buttonPrev);
+        prev.setOnClickListener(this);
+        next= (Button) findViewById(R.id.buttonNext);
+        next.setOnClickListener(this);
 
         if(savedInstanceState != null){
             isInitialized = savedInstanceState.getBoolean(INITIALIZE_STATUS);
@@ -57,18 +61,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (isBound) {
-            switch (musicService.getPlayingStatus()){
-                case 0:
-                    musicService.startMusic();
-                    play.setText("Pause");
+            switch(view.getId()) {
+                case R.id.play:
+                    switch (musicService.getPlayingStatus()) {
+                        case 0:
+                            musicService.startMusic();
+                            play.setText("Pause");
+                            break;
+                        case 1:
+                            musicService.pauseMusic();
+                            play.setText("Resume");
+                            break;
+                        case 2:
+                            musicService.resumeMusic();
+                            play.setText("Pause");
+                            break;
+                    }
                     break;
-                case 1:
-                    musicService.pauseMusic();
-                    play.setText("Resume");
+                case R.id.buttonPrev:
+                    musicService.prevSong();
                     break;
-                case 2:
-                    musicService.resumeMusic();
-                    play.setText("Pause");
+                case R.id.buttonNext:
+                    musicService.nextSong();
                     break;
             }
         }
