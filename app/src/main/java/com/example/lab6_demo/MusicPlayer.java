@@ -63,7 +63,12 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
     }
 
     public void prevSong(){
-        musicIndex = (musicIndex -1) % MUSICNAME.length;
+        musicIndex--;
+        if (musicIndex == -1)
+        {
+            musicIndex = 2;
+        }
+        musicIndex = (musicIndex) % MUSICNAME.length;
         player.release();
         player= null;
         playMusic();
@@ -81,5 +86,13 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener {
         player.release();
         player= null;
         playMusic();
+    }
+
+    public void stopMusic() {
+        if(player!= null && player.isPlaying()){
+            player.stop();
+            currentPosition= 0;
+            musicStatus= 0;
+        }
     }
 }

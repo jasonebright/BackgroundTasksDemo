@@ -16,7 +16,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView music;
-    Button play, prev, next;
+    Button play, prev, next, stop;
 
     MusicService musicService;
     MusicCompletionReceiver musicCompletionReceiver;
@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         prev.setOnClickListener(this);
         next= (Button) findViewById(R.id.buttonNext);
         next.setOnClickListener(this);
+        stop = (Button) findViewById(R.id.buttonStop);
+        stop.setOnClickListener(this);
 
         if(savedInstanceState != null){
             isInitialized = savedInstanceState.getBoolean(INITIALIZE_STATUS);
@@ -83,6 +85,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 case R.id.buttonNext:
                     musicService.nextSong();
+                    break;
+                case R.id.buttonStop:
+                    musicService.stopMusic();
+                    play.setText("Start");
                     break;
             }
         }

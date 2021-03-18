@@ -42,6 +42,11 @@ public class MusicService extends Service {
         musicPlayer.prevSong();
     }
 
+    public void stopMusic()
+    {
+        musicPlayer.stopMusic();
+    }
+
     public int getPlayingStatus(){
 
         return musicPlayer.getMusicStatus();
